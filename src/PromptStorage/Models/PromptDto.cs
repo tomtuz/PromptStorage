@@ -1,4 +1,4 @@
-﻿namespace PromptStorage.API.Models
+﻿namespace PromptStorage.Models
 {
     public class PromptDto
     {

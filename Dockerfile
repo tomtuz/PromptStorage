@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["PromptStorage.API/PromptStorage.API.csproj", "PromptStorage.API/"]
-RUN dotnet restore "./PromptStorage.API/PromptStorage.API.csproj"
+COPY ["src/PromptStorage/PromptStorage.csproj", "PromptStorage/"]
+RUN dotnet restore "./src/PromptStorage/PromptStorage.csproj"
 COPY . .
-WORKDIR "/src/PromptStorage.API"
-RUN dotnet build "./PromptStorage.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/PromptStorage"
+RUN dotnet build "./PromptStorage.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./PromptStorage.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./PromptStorage.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PromptStorage.API.dll"]
+ENTRYPOINT ["dotnet", "PromptStorage.dll"]

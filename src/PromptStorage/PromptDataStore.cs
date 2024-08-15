@@ -1,15 +1,15 @@
-﻿using PromptStorage.API.Models;
+﻿using PromptStorage.Models;
 
-namespace PromptStorage.API
+namespace PromptStorage
 {
-    public class PromptsDataStore
+    public class PromptDataStore
     {
         public List<PromptDto> Prompts { get; set; }
 
-        public static PromptsDataStore Current { get; } = new PromptsDataStore();
+        public static PromptDataStore Current { get; } = new PromptDataStore();
 
-        public PromptsDataStore() {
-        
+        public PromptDataStore() {
+
             Prompts = new List<PromptDto>
             {
                 new PromptDto
